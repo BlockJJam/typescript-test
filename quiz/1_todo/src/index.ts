@@ -1,8 +1,22 @@
-let todoItems;
+// 2가지 살을 붙여보자
+// - any: 모든 타입을 허용해주는 타입
+// - 함수의 반환 타입: 반환타입이 있을 땐 ": 해당 타입 지정", 없을 땐: : void 지정
+
+
+// 과제 1. 타입 설정
+// 과제 2. 중복 코드 제거 및 인터페이스 설정
+
+interface Todo {
+  id:number;
+  title:string;
+  done:boolean;
+}
+
+let todoItems: Array<Todo>;
 
 // api
-function fetchTodoItems() {
-  const todos = [
+function fetchTodoItems(): Array<Todo> {
+  const todos : Array<Todo> = [
     { id: 1, title: '안녕', done: false },
     { id: 2, title: '타입', done: false },
     { id: 3, title: '스크립트', done: false },
@@ -11,40 +25,42 @@ function fetchTodoItems() {
 }
 
 // crud methods
-function fetchTodos() {
+function fetchTodos(): Array<Todo> {
   const todos = fetchTodoItems();
   return todos;
 }
 
-function addTodo(todo) {
+function addTodo(todo: Todo): void {
   todoItems.push(todo);
 }
 
-function deleteTodo(index) {
+function deleteTodo(index:number): void {
   todoItems.splice(index, 1);
 }
 
-function completeTodo(index, todo) {
+function completeTodo(index: number, todo:Todo) :void {
   todo.done = true;
   todoItems.splice(index, 1, todo);
 }
 
 // business logic
-function logFirstTodo() {
+function logFirstTodo(): Todo{
   return todoItems[0];
 }
 
-function showCompleted() {
+function showCompleted(): Array<Todo>{
   return todoItems.filter(item => item.done);
 }
 
 // TODO: 아래 함수의 내용을 채워보세요. 아래 함수는 `addTodo()` 함수를 이용하여 2개의 새 할 일을 추가하는 함수입니다.
-function addTwoTodoItems() {
+function addTwoTodoItems() :void{
   // addTodo() 함수를 두 번 호출하여 todoItems에 새 할 일이 2개 추가되어야 합니다.
+  addTodo({id:4, title:"테스트1", done:false});
+  addTodo({id:5, title:"테스트2", done:false});
 }
 
 // NOTE: 유틸 함수
-function log() {
+function log() :void{
   console.log(todoItems);
 }
 
