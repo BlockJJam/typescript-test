@@ -64,3 +64,63 @@ const a = logText<string>('a'); // 함수 호출 시점에서, 어떤 타입으�
 const b = logText<number>(10);
 const t = logText<boolean>(true);
 // 필드가 각 타입에 대한 프리뷰를 제공받고, 타입 검증 또한 가능하며, 유지보수 측면에서도 코드의 중복이나 유연성이 보장됨
+
+// interface Dropdown{
+//     value: string;
+//     selected: boolean;
+// }
+// 
+// const obj: Dropdown = {value:10, selected: false}; // error
+// const obj: Dropdown = {value:'hi', selected: false}; // no error
+
+// 제네릭 인터페이스
+interface DropdownItem<T>{
+    value: T;
+    selected: boolean;
+}
+
+const obj1: DropdownItem<string> = {value:'abc', selected: false}; // no error
+const obj2: DropdownItem<number> = {value: 10, selected: false}; // no error
+
+// 제네릭 타입 제한
+// - 더욱 엄격하게 제한하는 방법
+// function logTextLength<T> (text: T[]): T[]{ // T[] <- 배열임을 힌트
+//     console.log(text.length); // 어떠한 타입도 들어왔는지 알 수 없기 때문에(컴파일러 시점에서), 힌트를 줄 수 있다(T[])
+//     text.length;
+//     text.forEach(function(text){
+//         console.log(text);
+//     })
+//     return text
+// }
+
+// logTextLength<string>(['hi','hello']);
+
+// 제네릭 타입 제한 2 -> 정의된 타입 적용하기
+interface LengthType{
+    length: number
+}
+
+function logTextLength<T extends LengthType> (text: T): T{ // T[] <- 배열임을 힌트
+    console.log(text.length); // 어떠한 타입도 들어왔는지 알 수 없기 때문에(컴파일러 시점에서), 힌트를 줄 수 있다(T[])
+    text.length;
+    return text
+}
+
+logTextLength<string>('hi'); // string 은 length 속성이 있음
+// logTextLength<number>(10); // number 은 length 속성이 있음
+logTextLength({length: 10}) // 객체도 length라는 속성이 있으면 받아들여짐
+
+// 제네릭 타입제한 3 -> keyof
+interface ShopingItem{
+    name: string;
+    price: number;
+    stock: number;
+}
+
+function getShoppingItemOption<T extends keyof ShopingItem>(itemOption: T): T{
+    return itemOption;
+}
+
+// getShoppingItemOption({name:'hello'});
+// getShoppingItemOption<string>('a');
+getShoppingItemOption("name") 
