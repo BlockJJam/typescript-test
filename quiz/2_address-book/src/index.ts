@@ -109,3 +109,5 @@ enum PhoneType{
 var a = new AddressBook();
 setTimeout(()=> a.findContactByPhone(44455556666,PhoneType.OFFICE), 5000)
 
+var div  = document.querySelector('div') as HTMLDivElement;
+div.innerHTML; // null이 있을 수 있음
