@@ -60,6 +60,7 @@ class AddressBook {
   contacts:Contact[] = [];
 
   constructor() {
+    console.log("constructor")
     this.fetchData();
   }
 
@@ -78,7 +79,8 @@ class AddressBook {
     return this.contacts.filter(contact => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber: number, phoneType: string) :Contact[]{
+  findContactByPhone(phoneNumber: number, phoneType: PhoneType) :Contact[]{
+    console.log(this.contacts)
     return this.contacts.filter(
       contact => contact.phones[phoneType].num === phoneNumber
     );
@@ -98,4 +100,12 @@ class AddressBook {
   /* ------------------------------------------------ */
 }
 
-new AddressBook();
+enum PhoneType{
+  HOME = 'home',
+  OFFICE = 'office',
+  STUDIO = 'studio'
+}
+
+var a = new AddressBook();
+setTimeout(()=> a.findContactByPhone(44455556666,PhoneType.OFFICE), 5000)
+
