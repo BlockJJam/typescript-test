@@ -1,14 +1,5 @@
-interface PhoneNumberDictionary {
-  [phone: string]: {
-    num: number;
-  };
-}
-
-interface Contact {
-  name: string;
-  address: string;
-  phones: PhoneNumberDictionary;
-}
+import { PhoneType} from './modules/enum'
+import { PhoneNumberDictionary, Contact} from './modules/types'
 
 // api
 // TODO: 아래 함수의 반환 타입을 지정해보세요.
@@ -98,12 +89,6 @@ class AddressBook {
     return this.contacts.map(contact => contact.address);
   }
   /* ------------------------------------------------ */
-}
-
-enum PhoneType{
-  HOME = 'home',
-  OFFICE = 'office',
-  STUDIO = 'studio'
 }
 
 var a = new AddressBook();
